@@ -1,0 +1,25 @@
+[
+    {
+      "title": "Wireless Earbuds",
+      "price": 2999,
+      "category": "Electronics",
+      "image": "/public/products/earbuds.jpg",
+      "source": "Daraz"
+    },
+    {
+      "title": "LED Desk Lamp",
+      "price": 1999,
+      "category": "Home & Living",
+      "image": "/public/products/lamp.jpg",
+      "source": "AliExpress"
+    },
+    {
+      "title": "Smart Watch",
+      "price": 4999,
+      "category": "Electronics",
+      "image": "/public/products/smartwatch.jpg",
+      "source": "AliExpress"
+    }
+  ]
+  
+  

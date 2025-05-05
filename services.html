@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FixBuy.pk - Our Services</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-blue-900 text-white py-4 shadow-md">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">FixBuy.pk</h1>
+      <nav class="space-x-4">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="services.html" class="hover:underline">Services</a>
+        <a href=products.html class="hover:underline">Products</a>
+        <a href="#contact" class="hover:underline">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+
+<!-- Services Section with Categories and Search -->
+<section class="py-12 px-4">
+    <h2 class="text-3xl font-bold text-center mb-4">Explore Our Services</h2>
+  
+    <!-- Search & Filter -->
+    <div class="flex flex-col md:flex-row justify-center gap-4 mb-8">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search services..."
+        class="border px-4 py-2 rounded w-full md:w-96"
+      />
+  
+      <select
+        id="categorySelect"
+        class="border px-4 py-2 rounded w-full md:w-60"
+      >
+        <option value="">All Categories</option>
+        <option value="Home">Home Services</option>
+        <option value="Event">Event Services</option>
+        <option value="Technical">Technical Services</option>
+      </select>
+    </div>
+  
+    <!-- Services Grid -->
+    <div id="servicesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"></div>
+  </section>
+  
+  <!-- Script -->
+  <script>
+    const phone = "923403435338"; // WhatsApp Number
+  
+    const services = [
+      {
+        title: "Electrician",
+        desc: "Fix wiring, sockets, fans, and more.",
+        category: "Home",
+        img: "/public/img/electrician.jpg"
+      },
+      {
+        title: "Plumber",
+        desc: "Leaks, installations, and drainage fixes.",
+        category: "Home",
+        img: "/public/img/plumber.jpg"
+      },
+      {
+        title: "Qari for Events",
+        desc: "Hire Qari for Nikkah, Milad, and events.",
+        category: "Event",
+        img: "/public/img/qari.jpg"
+      },
+      {
+        title: "Mehndi Artist",
+        desc: "Bridal and party Mehndi at your doorstep.",
+        category: "Event",
+        img: "/public/img/mehndi.jpg"
+      },
+      {
+        title: "Photographer",
+        desc: "Hire for weddings, parties, and shoots.",
+        category: "Event",
+        img: "/public/img/photographer.jpg"
+      },
+      {
+        title: "Solar Panel Cleaning",
+        desc: "Get solar panels cleaned professionally.",
+        category: "Technical",
+        img: "/public/img/solar.jpg"
+      },
+      {
+        title: "AC Technician",
+        desc: "Service or install your AC unit.",
+        category: "Technical",
+        img: "/public/img/ac.jpg"
+      },
+      {
+        title: "Carpenter",
+        desc: "Furniture fixing and custom woodwork.",
+        category: "Home",
+        img: "/public/img/carpenter.jpg"
+      }
+    ];
+  
+    const grid = document.getElementById("servicesGrid");
+    const searchInput = document.getElementById("searchInput");
+    const categorySelect = document.getElementById("categorySelect");
+  
+    function renderServices(filterText = "", selectedCategory = "") {
+      const filtered = services.filter(service =>
+        service.title.toLowerCase().includes(filterText.toLowerCase()) &&
+        (selectedCategory === "" || service.category === selectedCategory)
+      ).slice(0, 6); // limit to 6
+  
+      grid.innerHTML = "";
+  
+      filtered.forEach(service => {
+        const card = document.createElement("div");
+        card.className = "bg-white border rounded shadow hover:shadow-lg overflow-hidden";
+  
+        card.innerHTML = `
+          <img src="${service.img}" alt="${service.title}" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h3 class="text-xl font-semibold mb-1">${service.title}</h3>
+            <p class="text-sm text-gray-600 mb-3">${service.desc}</p>
+            <a href="https://wa.me/${phone}?text=I want to book: ${encodeURIComponent(service.title)}"
+               target="_blank"
+               class="inline-block bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-800">
+              Book Now
+            </a>
+          </div>
+        `;
+  
+        grid.appendChild(card);
+      });
+    }
+  
+    // Initial render
+    renderServices();
+  
+    // Filter events
+    searchInput.addEventListener("input", () => {
+      renderServices(searchInput.value, categorySelect.value);
+    });
+  
+    categorySelect.addEventListener("change", () => {
+      renderServices(searchInput.value, categorySelect.value);
+    });
+  </script>
+  
+  <!-- Contact Form Section -->
+<section id="contact" class="py-12 px-4 bg-gray-100">
+    <h2 class="text-3xl font-bold text-center mb-8">Book a Service</h2>
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded shadow">
+      <form id="serviceForm" onsubmit="sendMessage(); return false;">
+        <div class="mb-4">
+          <label class="block mb-1 font-semibold">Your Name</label>
+          <input type="text" id="name" required class="w-full border rounded px-3 py-2" />
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1 font-semibold">Phone Number</label>
+          <input type="tel" id="phone" required class="w-full border rounded px-3 py-2" />
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1 font-semibold">Service Type</label>
+          <select id="service" required class="w-full border rounded px-3 py-2">
+            <option value="" disabled selected>Select a service</option>
+            <option>Electrician</option>
+            <option>Plumber</option>
+            <option>Qari for Events</option>
+            <option>Mehndi Artist</option>
+            <option>Photographer</option>
+            <option>Solar Panel Cleaning</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1 font-semibold">Your Message</label>
+          <textarea id="message" rows="4" class="w-full border rounded px-3 py-2" placeholder="Any specific instructions?"></textarea>
+        </div>
+        <button type="submit" class="bg-blue-900 text-white px-6 py-2 rounded hover:bg-blue-800">Send on WhatsApp</button>
+      </form>
+    </div>
+  </section>
+  
+  <!-- WhatsApp Script -->
+  <script>
+    function sendMessage() {
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const service = document.getElementById("service").value;
+      const message = document.getElementById("message").value;
+  
+      const fullMessage = `Name: ${name}%0APhone: ${phone}%0AService: ${service}%0AMessage: ${message}`;
+      const whatsappUrl = `https://wa.me/923403435338?text=${fullMessage}`;
+      window.open(whatsappUrl, "_blank");
+    }
+  </script>
+  
+
+  <!-- Footer -->
+  <footer class="bg-blue-900 text-white py-4 text-center">
+    <p>&copy; 2025 FixBuy.pk. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
